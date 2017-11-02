@@ -1,14 +1,11 @@
 #!/usr/bin/env python
-
-import roslib
 import rospy
-import sys
-import serial
 from math import pi
 from sensor_msgs.msg import JointState
 from tf2_msgs.msg import TFMessage
 
 jnt_msg = JointState()
+roll, pitch = 0, 0
 
 def callback(data):
 	global roll, pitch
@@ -20,8 +17,8 @@ def control_daVinci():
 	imu_sub = rospy.Subscriber('/tf', TFMessage, callback)
 	rospy.init_node('oculus_dvrk', anonymous = True)
 
-	roll = 0
-	pitch = 0
+	global roll, pitch
+
 	deg_to_rad = pi / 180
 	jnt_msg.position = [0,0,0,0,0,0,0]
 
